@@ -157,13 +157,14 @@ namespace OnlineShop.Areas.Admin.Controllers
         //    return RedirectToAction("Index");
         //}
 
-        [HttpDelete, ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         public ActionResult Delete(long id)
         {
             User user = db.Users.Find(id);
             db.Users.Remove(user);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json("All the customers deleted successfully!");
+            //return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
