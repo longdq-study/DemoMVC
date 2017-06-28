@@ -22,7 +22,6 @@ namespace OnlineShop.Areas.Admin.Controllers
         public ActionResult Index(int page = 1, int pageSize = 10)
         {
             var dao = new UserDao();
-
             var model = dao.ListAllPaging(page, pageSize);
             return View(model);
         }
@@ -166,11 +165,18 @@ namespace OnlineShop.Areas.Admin.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult Delete(long id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
-            return Json("All the customers deleted successfully!");
-            //return RedirectToAction("Index");
+            try
+            {
+                User user = db.Users.Find(id);
+                db.Users.Remove(user);
+                db.SaveChanges();
+                return Json(new { errorCode = "0", errorMsg = "Xóa thành công.", id = id });
+                //return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return Json(new { errorCode = "1", errorMsg = "Xóa thất bại." });
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -186,6 +192,23 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             Session[CommonConstants.USER_SESSION] = null;
             return Redirect("/");
+        }
+
+        [HttpPost, ActionName("ChangeStatus")]
+        public ActionResult ChangeStatus(long id)
+        {
+            User user = db.Users.Find(id);
+            try
+            {
+                user.Status = !user.Status;
+                db.SaveChanges();
+                return Json(new { errorCode = "0", errorMsg = "Đổi trạng thái thành công.", status = user.Status });
+                //return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return Json(new { errorCode = "1", errorMsg = "Đổi trạng thái thất bại.", status = user.Status });
+            }
         }
     }
 }

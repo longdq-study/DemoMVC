@@ -365,7 +365,7 @@
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
-                @RenderBody();
+                @RenderBody()
                 <!-- /.row -->
             </div>
             <!-- /.container-fluid -->
@@ -381,5 +381,7 @@
     <script src="/assets/admin/vendor/metisMenu/metisMenu.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="/assets/admin/dist/js/sb-admin-2.js"></script>
+
+    @RenderSection("jsFooter", required: false)
 </body>
 </html>

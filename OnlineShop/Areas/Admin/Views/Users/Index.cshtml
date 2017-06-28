@@ -12,8 +12,28 @@
 @section header {
     Danh sách người dùng
 }
+@section jsFooter{
+    <script src="~/assets/admin/js/Users.js"></script>
+}
+<script>
+    function onSuccess(data) {
+
+
+        console.log(data);
+
+        console.log(data.errorMsg);
+        if (data.errorCode == 0) {
+            alert(data.errorMsg);
+            $("#row_" + data.id).remove();
+        } else {
+            alert(data.errorMsg);
+        }
+    }
+</script>
+
 <p>
-    @Html.ActionLink("Tạo mới", "Create")
+    @Html.ActionLink("Tạo mới", "Create", "", new { @class = "btn btn-success" })
+
 </p>
 
 <div class="row">
@@ -45,18 +65,18 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.FirstOrDefault().Phone)
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.FirstOrDefault().CreatedDate)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.FirstOrDefault().CreateBy)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.FirstOrDefault().ModifiedDate)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.FirstOrDefault().ModifiedBy)
-                                </th>
+                                @*<th>
+                                        @Html.DisplayNameFor(model => model.FirstOrDefault().CreatedDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.FirstOrDefault().CreateBy)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.FirstOrDefault().ModifiedDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.FirstOrDefault().ModifiedBy)
+                                    </th>*@
                                 <th>
                                     @Html.DisplayNameFor(model => model.FirstOrDefault().Status)
                                 </th>
@@ -66,7 +86,7 @@
 
                         @foreach (var item in Model)
                         {
-                            <tr id="row_@item.ID ">
+                            <tr id="row_@item.ID">
                                 <td>
                                     @Html.ActionLink("Sửa", "Edit", new { id = item.ID }) |
                                     @Html.ActionLink("Chi tiết", "Details", new { id = item.ID }) |
@@ -76,9 +96,10 @@
                                     @Ajax.ActionLink("Xóa", "Delete", new { @id = item.ID }, new AjaxOptions()
                                {
                                    Confirm = "Bạn có muốn xóa người dùng này?",
-                                   OnComplete = " $('#row_"+item.ID+ "').remove()",
+                                   OnSuccess = "onSuccess",
+                                   //" $('#row_" +item.ID+ "').remove()",
                                    HttpMethod = "POST"
-                               }
+                               }/*, new { @class = "btn btn-danger glyphicon glyphicon-trash" }*/
                                     )
 
                                 </td>
@@ -98,20 +119,20 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Phone)
                                 </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreateBy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ModifiedDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ModifiedBy)
+                                    </td>*@
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CreatedDate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CreateBy)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ModifiedDate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ModifiedBy)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Status)
+                                    <a href="#" class="btn-active" data-id="@item.ID"> @(item.Status ? "Kích hoạt" : "Khóa")</a>
                                 </td>
 
                             </tr>
@@ -136,7 +157,7 @@
 <script src="/assets/admin/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!-- Metis Menu Plugin JavaScript -->
 <script src="/assets/admin/vendor/metisMenu/metisMenu.min.js"></script>
-
+@*<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
 <script src="~/assets/admin/js/jquery.unobtrusive-ajax.min.js"></script>
 
 <!-- DataTables JavaScript -->
@@ -146,7 +167,7 @@
 <!-- Custom Theme JavaScript -->
 <script src="/assets/admin/dist/js/sb-admin-2.js"></script>
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         $('#user-table').DataTable({
             responsive: true,
@@ -156,23 +177,24 @@
             autoWidth: true
         });
     });
-    
+
     function deleteUser(ids) {
         alert(ids);
         var options = {};
         options.url = "/Admin/Users/Delete";
         options.type = "POST";
-        options.data = JSON.stringify('id='+ids);
+        options.data = JSON.stringify('id=' + ids);
         options.contentType = "application/json";
         options.dataType = "json";
         options.success = function (msg) {
             alert(msg);
         };
         options.error = function () {
-            
+
             alert("Error while deleting the records!");
         };
         $.ajax(options);
     }
-   
+
+
 </script>
