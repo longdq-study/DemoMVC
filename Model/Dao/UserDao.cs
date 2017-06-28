@@ -49,9 +49,9 @@ namespace Model.Dao
                 db.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                System.Console.WriteLine(ex.Message);
                 return false;
             }
         }

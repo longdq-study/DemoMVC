@@ -112,6 +112,12 @@ namespace OnlineShop.Areas.Admin.Controllers
                 {
                     user.Password = Encryptor.MD5Hash(user.Password);
                 }
+                else
+                {
+                    User u = dao.GetById(user.UserName);
+                    user.Password = u.Password;
+
+                }
                 user.ModifiedBy = ((UserLogin)Session[CommonConstants.USER_SESSION]).UserName;
                 user.ModifiedDate = DateTime.Now;
 
