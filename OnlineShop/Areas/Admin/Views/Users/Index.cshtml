@@ -72,13 +72,12 @@
                                     @Html.ActionLink("Chi tiết", "Details", new { id = item.ID }) |
                                     @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
 
-
-                                    @Ajax.ActionLink("Xóa", "Remove", new { @id = item.ID }, new AjaxOptions
+                                    @*<a href="#" onclick="deleteUser(@item.ID)">Xóa</a>*@
+                                    @Ajax.ActionLink("Xóa", "Delete", new { @id = item.ID }, new AjaxOptions()
                                {
-                                   Confirm = "Bạn có muỗn xóa người dùng này?",
+                                   Confirm = "Bạn có muốn xóa người dùng này?",
                                    OnComplete = " $('#row_"+item.ID+ "').remove()",
-                               
-                                   HttpMethod = "Delete"
+                                   HttpMethod = "POST"
                                }
                                     )
 
@@ -157,5 +156,23 @@
             autoWidth: true
         });
     });
-
+    
+    function deleteUser(ids) {
+        alert(ids);
+        var options = {};
+        options.url = "/Admin/Users/Delete";
+        options.type = "POST";
+        options.data = JSON.stringify('id='+ids);
+        options.contentType = "application/json";
+        options.dataType = "json";
+        options.success = function (msg) {
+            alert(msg);
+        };
+        options.error = function () {
+            
+            alert("Error while deleting the records!");
+        };
+        $.ajax(options);
+    }
+   
 </script>

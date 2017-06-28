@@ -142,15 +142,15 @@ namespace OnlineShop.Areas.Admin.Controllers
         //    return View(user);
         //}
 
-        public ActionResult Delete(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+        //public ActionResult Delete(long? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
 
-            return View();
-        }
+        //    return View();
+        //}
 
         //// POST: Admin/Users/Delete/5
         //[HttpPost, ActionName("Delete1")]
@@ -163,17 +163,14 @@ namespace OnlineShop.Areas.Admin.Controllers
         //    return RedirectToAction("Index");
         //}
 
-        [HttpDelete, ActionName("Delete")]
-        public ActionResult Delete(long? id)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult Delete(long id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             User user = db.Users.Find(id);
             db.Users.Remove(user);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json("All the customers deleted successfully!");
+            //return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
