@@ -10,7 +10,7 @@ using Model.EF;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
-    public class ContentsController : Controller
+    public class ContentsController : BaseController
     {
         private OnlineShopDbContext db = new OnlineShopDbContext();
 
