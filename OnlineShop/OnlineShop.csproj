@@ -230,6 +230,7 @@
     <Compile Include="Common\UserLogin.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\admin\js\bootbox.min.js" />
     <Content Include="assets\admin\js\jquery.unobtrusive-ajax.js" />
     <Content Include="assets\admin\js\jquery.unobtrusive-ajax.min.js" />
     <Content Include="assets\admin\js\plugin\ckeditor\adapters\jquery.js" />
@@ -1246,7 +1247,7 @@
     <Content Include="Areas\Admin\Views\Contents\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Contents\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Contents\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Contents\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Contents\Edit_long.cshtml" />
     <Content Include="Areas\Admin\Views\Contents\Index.cshtml" />
     <Content Include="assets\admin\js\plugin\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
     <Content Include="assets\admin\js\plugin\ckfinder\userfiles\.htaccess" />
@@ -1268,6 +1269,7 @@
     <Content Include="assets\admin\js\plugin\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="assets\admin\js\plugin\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="assets\admin\js\plugin\ckeditor\skins\moono-lisa\readme.md" />
+    <Content Include="Areas\Admin\Views\Contents\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

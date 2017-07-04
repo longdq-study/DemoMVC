@@ -9,11 +9,13 @@
     Bài viết
 }
 
-<!-- DataTables CSS -->
-<link href="/assets/admin/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
-<!-- DataTables Responsive CSS -->
-<link href="/assets/admin/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+@section cssHeader{
+    <!-- DataTables CSS -->
+    <link href="/assets/admin/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- DataTables Responsive CSS -->
+    <link href="/assets/admin/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
 
+}
 
 <p>
     @Html.ActionLink("Thêm mới", "Create")
@@ -111,7 +113,7 @@
                                     @Html.DisplayFor(modelItem => item.Description)
                                 </td>
                                 <td>
-                                    <a><img src= @item.Image class="img-responsive img-thumbnail" width="100" height="100" alt="" title=""></a>
+                                    <a><img src=@item.Image class="img-responsive img-thumbnail" width="200" height="200" alt="" title=""></a>
                                 </td>
                                 @*<td>
                                         @Html.DisplayFor(modelItem => item.MoreImages)
@@ -163,34 +165,27 @@
         </div>
     </div>
 </div>
+@section jsDatatable{
 
-<!-- jQuery -->
-<script src="/assets/admin/vendor/jquery/jquery.min.js"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="/assets/admin/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!-- Metis Menu Plugin JavaScript -->
-<script src="/assets/admin/vendor/metisMenu/metisMenu.min.js"></script>
-@*<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
-<script src="~/assets/admin/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/assets/admin/js/jquery.unobtrusive-ajax.min.js"></script>
 
-<!-- DataTables JavaScript -->
-<script src="/assets/admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script src="/assets/admin/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-<script src="/assets/admin/vendor/datatables-responsive/dataTables.responsive.js"></script>
-<!-- Custom Theme JavaScript -->
-<script src="/assets/admin/dist/js/sb-admin-2.js"></script>
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#user-table').DataTable({
-            responsive: true,
-            searching: false,
-            paging: false,
-            info: false,
-            autoWidth: true
+    <!-- DataTables JavaScript -->
+    <script src="/assets/admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/assets/admin/vendor/datatables/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/assets/admin/vendor/datatables/js/dataTables.responsive.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#user-table').DataTable({
+                responsive: true,
+                searching: false,
+                paging: false,
+                info: false,
+                autoWidth: true
+            });
         });
-    });
 
 
 
-</script>
+    </script>
+}

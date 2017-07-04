@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Model.EF;
+using OnlineShop.Common;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -50,6 +51,11 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                content.CreateBy = ((UserLogin)Session[CommonConstants.USER_SESSION]).UserName;
+                content.CreatedDate = DateTime.Now;
+                
+
+
                 db.Contents.Add(content);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -82,6 +88,9 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                content.ModifiedBy = ((UserLogin)Session[CommonConstants.USER_SESSION]).UserName;
+                content.ModifiedDate = DateTime.Now;
+
                 db.Entry(content).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

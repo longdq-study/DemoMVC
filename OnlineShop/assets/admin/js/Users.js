@@ -1,4 +1,6 @@
-﻿var user = {
+﻿
+
+var user = {
     init: function () {
         user.registerEvents();
     },

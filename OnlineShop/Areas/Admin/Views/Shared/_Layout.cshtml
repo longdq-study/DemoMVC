@@ -11,6 +11,9 @@
     <link href="/assets/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
     <link href="/assets/admin/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    @RenderSection("cssHeader", required: false)
+
     <!-- Custom CSS -->
     <link href="/assets/admin/dist/css/sb-admin-2.css" rel="stylesheet">
     <!-- Custom Fonts -->
@@ -21,7 +24,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="/assets/admin/vendor/jquery/jquery.min.js"></script>
+    @*<script src="/assets/admin/vendor/jquery/jquery.min.js"></script>*@
 </head>
 <body>
     <div id="wrapper">
@@ -45,14 +48,16 @@
     </div>
     <!-- /#wrapper -->
     <!-- jQuery -->
-    @*<script src="/assets/admin/vendor/jquery/jquery.min.js"></script>*@
+    <script src="/assets/admin/vendor/jquery/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="/assets/admin/vendor/bootstrap/js/bootstrap.min.js"></script>
     <!-- Metis Menu Plugin JavaScript -->
     <script src="/assets/admin/vendor/metisMenu/metisMenu.min.js"></script>
-    <script src="~/assets/admin/js/plugin/ckfinder/ckfinder_v1.js"></script>
+    @*<script src="~/assets/admin/js/plugin/ckfinder/ckfinder_v1.js"></script>*@
     <script src="/assets/admin/js/plugin/ckfinder/ckfinder.js"></script>
     <script src="/assets/admin/js/plugin/ckeditor/ckeditor.js"></script>
+
+    @RenderSection("jsDatatable", required: false)
     <!-- Custom Theme JavaScript -->
     <script src="/assets/admin/dist/js/sb-admin-2.js"></script>
 
