@@ -45,7 +45,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Description")] MyController myController)
+        public ActionResult Create([Bind(Include = "ID,Name,Code,Description")] MyController myController)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +77,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Description")] MyController myController)
+        public ActionResult Edit([Bind(Include = "ID,Name,Code,Description")] MyController myController)
         {
             if (ModelState.IsValid)
             {

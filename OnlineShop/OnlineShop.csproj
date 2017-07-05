@@ -1291,8 +1291,8 @@
     <Content Include="Areas\Admin\Views\MyControllers\Create.cshtml" />
     <Content Include="Areas\Admin\Views\MyControllers\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\MyControllers\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\MyControllers\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\MyControllers\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\MyControllers\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

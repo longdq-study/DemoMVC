@@ -19,7 +19,7 @@ namespace Model.EF
         [StringLength(200)]
         public string Name { get; set; }
 
-        [StringLength(10)]
+        [StringLength(1000)]
         public string Description { get; set; }
     }
 }
