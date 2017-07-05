@@ -13,6 +13,7 @@ namespace Model.EF
         }
 
         public virtual DbSet<About> Abouts { get; set; }
+        public virtual DbSet<Action> Actions { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<Content> Contents { get; set; }
@@ -21,6 +22,7 @@ namespace Model.EF
         public virtual DbSet<Footer> Footers { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<MenuType> MenuTypes { get; set; }
+        public virtual DbSet<MyController> MyControllers { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<Slide> Slides { get; set; }
@@ -72,6 +74,10 @@ namespace Model.EF
 
             modelBuilder.Entity<Menu>()
                 .Property(e => e.TypeID)
+                .IsFixedLength();
+
+            modelBuilder.Entity<MyController>()
+                .Property(e => e.Description)
                 .IsFixedLength();
 
             modelBuilder.Entity<Product>()
