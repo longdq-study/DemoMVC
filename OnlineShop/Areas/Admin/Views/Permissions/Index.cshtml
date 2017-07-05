@@ -1,23 +1,23 @@
-﻿@model IEnumerable<Model.EF.MyController>
+﻿@model IEnumerable<Model.EF.Permission>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
+@section header{
+    Danh sách quyền   
+ }
 <p>
     @Html.ActionLink("Create New", "Create")
-    @Html.ActionLink("Get All Controller", "GetAll")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Code)
+            @Html.DisplayNameFor(model => model.Business.Code)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.ActionName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
@@ -28,10 +28,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Code)
+            @Html.DisplayFor(modelItem => item.Business.Code)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.DisplayFor(modelItem => item.ActionName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)

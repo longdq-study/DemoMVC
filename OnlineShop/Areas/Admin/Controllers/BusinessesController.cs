@@ -4,147 +4,154 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using Model.EF;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
-    public class MyControllersController : Controller
+    public class BusinessesController : BaseController
     {
         private OnlineShopDbContext db = new OnlineShopDbContext();
 
-        // GET: Admin/MyControllers
+        // GET: Admin/Businesses
         public ActionResult Index()
         {
-            return View(db.MyControllers.ToList());
+            return View(db.Businesses.ToList());
         }
 
-        // GET: Admin/MyControllers/Details/5
-        public ActionResult Details(long? id)
+        // GET: Admin/Businesses/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MyController myController = db.MyControllers.Find(id);
-            if (myController == null)
+            Business business = db.Businesses.Find(id);
+            if (business == null)
             {
                 return HttpNotFound();
             }
-            return View(myController);
+            return View(business);
         }
 
-        // GET: Admin/MyControllers/Create
+        // GET: Admin/Businesses/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/MyControllers/Create
+        // POST: Admin/Businesses/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Code,Description")] MyController myController)
+        public ActionResult Create([Bind(Include = "Code,Name,Description")] Business business)
         {
             if (ModelState.IsValid)
             {
-                db.MyControllers.Add(myController);
+                db.Businesses.Add(business);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(myController);
+            return View(business);
         }
 
-        // GET: Admin/MyControllers/Edit/5
-        public ActionResult Edit(long? id)
+        // GET: Admin/Businesses/Edit/5
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MyController myController = db.MyControllers.Find(id);
-            if (myController == null)
+            Business business = db.Businesses.Find(id);
+            if (business == null)
             {
                 return HttpNotFound();
             }
-            return View(myController);
+            return View(business);
         }
 
-        // POST: Admin/MyControllers/Edit/5
+        // POST: Admin/Businesses/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Code,Description")] MyController myController)
+        public ActionResult Edit([Bind(Include = "Code,Name,Description")] Business business)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(myController).State = EntityState.Modified;
+                db.Entry(business).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(myController);
+            return View(business);
         }
 
-        // GET: Admin/MyControllers/Delete/5
-        public ActionResult Delete(long? id)
+        // GET: Admin/Businesses/Delete/5
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MyController myController = db.MyControllers.Find(id);
-            if (myController == null)
+            Business business = db.Businesses.Find(id);
+            if (business == null)
             {
                 return HttpNotFound();
             }
-            return View(myController);
+            return View(business);
         }
 
-        // POST: Admin/MyControllers/Delete/5
+        // POST: Admin/Businesses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            MyController myController = db.MyControllers.Find(id);
-            db.MyControllers.Remove(myController);
+            Business business = db.Businesses.Find(id);
+            db.Businesses.Remove(business);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        public ActionResult GetAll()
+
+        public ActionResult GetAllBusiness()
         {
             ReflectionController rfc = new ReflectionController();
-            List<Type> myControllerList = new List<Type>();
-            myControllerList = rfc.GetController("OnlineShop.Areas.Admin.Controllers");
+            List<Type> businessList = new List<Type>();
+            businessList = rfc.GetController("OnlineShop.Areas.Admin.Controllers");
 
-            List<String> listControllerOld = db.MyControllers.Select(c => c.Code).ToList();
-            List<String> listActionOld = db.Actions.Select(c => c.ActionName).ToList();
+            List<String> listControllerOld = db.Businesses.Select(c => c.Code).ToList();
+            List<String> listActionOld = db.Permissions.Select(c => c.ActionName).ToList();
 
-            foreach (var c in myControllerList)
+            foreach (var c in businessList)
             {
                 if (!listControllerOld.Contains(c.Name))
                 {
-                    MyController mc = new MyController() { Code = c.Name, Name = c.Name, Description = "Chưa có mô tả" };
-                    db.MyControllers.Add(mc);
-                    db.SaveChanges();
+                    Business mc = new Business() { Code = c.Name, Name = c.Name, Description = "Chưa có mô tả" };
+                    db.Businesses.Add(mc);
+                    //db.SaveChanges();
                 }
                 List<string> actionList = rfc.GetActions(c);
                 foreach (var al in actionList)
                 {
-                    if (listActionOld.Contains(c.Name + "-" + al))
+                    if (!listActionOld.Contains(c.Name + "-" + al))
                     {
-                        Model.EF.Action action = new Model.EF.Action() { ActionName = c.Name + "-" + al, Description = "Chưa có mô tả", ControllerID = c.Name };
+                        Permission p = new Permission();
+                        p.ActionName = c.Name + "-" + al;
+                        p.Description = "Chưa có mô tả";
+                        p.BusinessCode = c.Name ;
+                      //  p.Business = db.Businesses.Where(x=>x.Code == c.Name).FirstOrDefault();
 
-                        db.Actions.Add(action);
-                        db.SaveChanges();
+                        db.Permissions.Add(p);
+                       
                     }
                 }
+                db.SaveChanges();
 
             }
-            
+
 
             return RedirectToAction("Index");
         }

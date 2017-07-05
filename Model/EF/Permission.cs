@@ -6,8 +6,8 @@ namespace Model.EF
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Action")]
-    public partial class Action
+    [Table("Permission")]
+    public partial class Permission
     {
         public long ID { get; set; }
 
@@ -19,6 +19,8 @@ namespace Model.EF
 
         [Required]
         [StringLength(250)]
-        public string ControllerID { get; set; }
+        public string BusinessCode { get; set; }
+
+        public virtual Business Business { get; set; }
     }
 }

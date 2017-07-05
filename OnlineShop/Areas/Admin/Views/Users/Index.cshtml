@@ -91,9 +91,7 @@
                                 <td>
                                     @Html.ActionLink("Sửa", "Edit", new { id = item.ID }) |
                                     @Html.ActionLink("Chi tiết", "Details", new { id = item.ID }) |
-                                    @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
-
-                                    @*<a href="#" onclick="deleteUser(@item.ID)">Xóa</a>*@
+                                    @Html.ActionLink("Cấp quyền", "Index","GrantPermissions", new { id = item.ID },null) |
                                     @Ajax.ActionLink("Xóa", "Delete", new { @id = item.ID }, new AjaxOptions()
                                {
                                    Confirm = "Bạn có muốn xóa người dùng này?",

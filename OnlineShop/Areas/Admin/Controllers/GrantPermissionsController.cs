@@ -6,11 +6,12 @@ using System.Web.Mvc;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
-    public class ActionController : BaseController
+    public class GrantPermissionsController : BaseController
     {
-        // GET: Admin/Action
-        public ActionResult Index()
+        // GET: Admin/GrantPermissions
+        public ActionResult Index(int id)
         {
+
             return View();
         }
     }
