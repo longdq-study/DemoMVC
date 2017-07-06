@@ -3,37 +3,70 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+@section header {
+    Cấp quyền truy nhập
+    }
 
-<h2>Cấp quyền truy nhập</h2>
 
 <div class="row">
     <div class="col-md-5">
         <div class="form-group">
           
-            <div class="col-md-12">
-                @Html.Label("Nghiệp vụ")
-                @Html.DropDownList("business", (IEnumerable<SelectListItem>)ViewBag.BusinessList, 
-               new { @id="businesslist", @class = "form-control" , onchange = "getPermission('/Admin/GrantPermission/'+this.value, @Session['USER_GRANT_ROLE'])" })
+            <div class="col-md-9">
+                <h4>Danh mục nghiệp vụ</h4>
+                @Html.DropDownList("business", (IEnumerable<SelectListItem>)ViewBag.BusinessList,
+               new { @id="businesslist", @class = "form-control" , onchange = "getPermission('/Admin/GrantPermissions/GetPermission/?businessId=' + this.value,'" + Session["USER_GRANT_ROLE"] +"')" })
             </div>
         </div>
        
     </div>
     <div class="col-md-7">
-        <h3>Danh mục quyền</h3>
+        <h4>Danh mục quyền</h4>
         <div id="listaction"></div>
         
     </div>
 </div>
 
 <script>
-    function getPermission( action, userid) {
-        $ajax({
-            method: GET
+    function getPermission(action, userid) {
+        //alert(action);
+        $.ajax({
             url: action,
-            data: { businessid: userid },
+            method: 'GET',
+            data: ({
+                userId: userid
+            }),
             success: function (data) {
                 console.log(data);
+                $('#listaction').html('');
+                $.each(data, function (index, value) {
+                  //  console.log(value);
+                    if (value.isGrant) {
+                        $('#listaction').append("<input type='checkbox' checked onchange='updatePermission(" + "\"/Admin/GrantPermissions/UpdatePermission/?permissionid=" + value.PermissionId + "\"," + @Session["USER_GRANT_ROLE"] + ");' > " + value.Description + "</br>")
+                    } else {
+                        //  $('#listaction').append(' <div class="checkbox"> <label> <input type="checkbox"  value="" onchange = "updatePermission(\'/Admin/GrantPermissions/UpdatePermission/?permissionid=\' + this.value,\'" + Session["USER_GRANT_ROLE"] +"\')" >' + value.Description + '</label> </div>')
+                        //$('#listaction').append("<input type='checkbox' > " + value.Description + "</br>")
+                        $('#listaction').append("<input type='checkbox' onchange='updatePermission(" + "\"/Admin/GrantPermissions/UpdatePermission/?permissionid=" + value.PermissionId + "\"," + @Session["USER_GRANT_ROLE"] + ");' > " + value.Description + "</br>")
+                    }
+                });
             }
         });
     };
+
+    function updatePermission(action, userid) {
+        //alert(action);
+        $.ajax({
+            url: action,
+            method: 'GET',
+            data: ({
+                userId: userid
+            }),
+            success: function (data) {
+              
+                $('#AlertBox').removeClass('hide');
+                $('#AlertBox').delay(1500).slideUp(500);
+            }
+        });
+    }
+
 </script>

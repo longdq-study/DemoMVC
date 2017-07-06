@@ -13,7 +13,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         // GET: Admin/GrantPermissions
 
         private OnlineShopDbContext db = new OnlineShopDbContext();
-        public ActionResult Index(string id)
+        public ActionResult Index(long id)
         {
             //Lấy ra tất cả danh sách nghiệp vụ
             var listController = db.Businesses.AsEnumerable();
@@ -27,7 +27,16 @@ namespace OnlineShop.Areas.Admin.Controllers
             //tra ve du lieu cho dropdowlist
             ViewBag.BusinessList = items;
 
+            //lay danh sach quyen da duoc cap
+            var listgranted = from g in db.GrantPermissions
+                              join p in db.Permissions on g.PermissionID equals p.ID
+                              where g.UserID == id
+                              select new SelectListItem() { Value = p.ID.ToString(), Text = p.Description };
+            ViewBag.listgranted = listgranted;
+
             Session[Common.CommonConstants.USER_GRANT_ROLE] = id;
+
+          //  var usergrant = db.Users.Find(id);
 
 
             return View();
@@ -57,6 +66,35 @@ namespace OnlineShop.Areas.Admin.Controllers
             }
 
             return Json(listGrant.OrderBy(x => x.PermissionName), JsonRequestBehavior.AllowGet);
+        }
+
+        public string UpdatePermission(long permissionid, long userid)
+        {
+            string msg = "";
+
+            //var grant = db.GrantPermissions.Where(x => x.PermissionID == permissionid).Where(y => y.UserID == userid);
+            var grant = (from g in db.GrantPermissions
+                          where g.UserID == userid && g.PermissionID == permissionid
+                          select g).SingleOrDefault();
+            //khong co ban ghi nao thi them moi;
+            if (grant == null)
+            {
+                GrantPermission gp = new GrantPermission() { PermissionID = permissionid, UserID = userid };
+
+                db.GrantPermissions.Add(gp);
+                db.SaveChanges();
+                SetAlert("Cấp quyền thành công ", "success");
+                //msg = "<div class='alert alert-success'>Cấp quyền thành công </div>";
+            }else
+            {
+                db.GrantPermissions.Remove(grant);
+                db.SaveChanges();
+                SetAlert("Cấp quyền thành công ", "error");
+                //msg = "<div class='alert alert-danger'>Hủy quyền thành công </div>";
+            }
+           
+            return "abc"; 
+           // return RedirectToAction("Index","GrantPermissions", new { id = Session[Common.CommonConstants.USER_GRANT_ROLE] });
         }
     }
 }

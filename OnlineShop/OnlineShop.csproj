@@ -249,6 +249,10 @@
     <Compile Include="Common\UserLogin.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\admin\dist\css\sb-admin-2.css" />
+    <Content Include="assets\admin\dist\css\sb-admin-2.min.css" />
+    <Content Include="assets\admin\dist\js\sb-admin-2.js" />
+    <Content Include="assets\admin\dist\js\sb-admin-2.min.js" />
     <Content Include="assets\admin\js\bootbox.min.js" />
     <Content Include="assets\admin\js\jquery.unobtrusive-ajax.js" />
     <Content Include="assets\admin\js\jquery.unobtrusive-ajax.min.js" />
@@ -1354,7 +1358,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Base\" />
-    <Folder Include="assets\admin\dist\" />
     <Folder Include="assets\admin\less\" />
     <Folder Include="assets\admin\pages\" />
     <Folder Include="assets\admin\vendor\" />
