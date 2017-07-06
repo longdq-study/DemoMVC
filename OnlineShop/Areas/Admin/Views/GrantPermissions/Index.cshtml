@@ -4,5 +4,36 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Cấp quyền truy nhập</h2>
 
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group">
+          
+            <div class="col-md-12">
+                @Html.Label("Nghiệp vụ")
+                @Html.DropDownList("business", (IEnumerable<SelectListItem>)ViewBag.BusinessList, 
+               new { @id="businesslist", @class = "form-control" , onchange = "getPermission('/Admin/GrantPermission/'+this.value, @Session['USER_GRANT_ROLE'])" })
+            </div>
+        </div>
+       
+    </div>
+    <div class="col-md-7">
+        <h3>Danh mục quyền</h3>
+        <div id="listaction"></div>
+        
+    </div>
+</div>
+
+<script>
+    function getPermission( action, userid) {
+        $ajax({
+            method: GET
+            url: action,
+            data: { businessid: userid },
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    };
+</script>

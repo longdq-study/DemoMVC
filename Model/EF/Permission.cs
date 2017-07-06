@@ -17,7 +17,6 @@ namespace Model.EF
         [StringLength(250)]
         public string Description { get; set; }
 
-        [Required]
         [StringLength(250)]
         public string BusinessCode { get; set; }
 

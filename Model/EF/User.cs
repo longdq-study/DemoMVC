@@ -40,5 +40,11 @@ namespace Model.EF
         public string ModifiedBy { get; set; }
 
         public bool Status { get; set; }
+
+        [StringLength(200)]
+        public string JobTiitle { get; set; }
+
+        [StringLength(200)]
+        public string Department { get; set; }
     }
 }

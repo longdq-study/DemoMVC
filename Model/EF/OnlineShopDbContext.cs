@@ -28,7 +28,9 @@ namespace Model.EF
         public virtual DbSet<Slide> Slides { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<GrantPermission> GrantPermissions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -43,11 +45,6 @@ namespace Model.EF
             modelBuilder.Entity<About>()
                 .Property(e => e.ModifiedBy)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<Business>()
-                .HasMany(e => e.Permissions)
-                .WithRequired(e => e.Business)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Category>()
                 .Property(e => e.MetaTitle)
@@ -123,6 +120,14 @@ namespace Model.EF
 
             modelBuilder.Entity<User>()
                 .Property(e => e.ModifiedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<User>()
+                .Property(e => e.JobTiitle)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<User>()
+                .Property(e => e.Department)
                 .IsUnicode(false);
         }
     }

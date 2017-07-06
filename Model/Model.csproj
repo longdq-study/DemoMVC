@@ -68,6 +68,7 @@
     <Compile Include="EF\ContentTag.cs" />
     <Compile Include="EF\Feedback.cs" />
     <Compile Include="EF\Footer.cs" />
+    <Compile Include="EF\GrantPermission.cs" />
     <Compile Include="EF\Menu.cs" />
     <Compile Include="EF\MenuType.cs" />
     <Compile Include="EF\OnlineShopDbContext.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="EF\Slide.cs" />
     <Compile Include="EF\sysdiagram.cs" />
     <Compile Include="EF\Tag.cs" />
+    <Compile Include="EF\Task.cs" />
     <Compile Include="EF\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
