@@ -5,25 +5,28 @@
 }
 @section header {
     Cấp quyền truy nhập
-    }
+}
 
 
 <div class="row">
+    <div class="col-md-12">
+       <h3> Người dùng: @ViewBag.users</h3>
+    </div>
     <div class="col-md-5">
         <div class="form-group">
-          
+
             <div class="col-md-9">
                 <h4>Danh mục nghiệp vụ</h4>
                 @Html.DropDownList("business", (IEnumerable<SelectListItem>)ViewBag.BusinessList,
-               new { @id="businesslist", @class = "form-control" , onchange = "getPermission('/Admin/GrantPermissions/GetPermission/?businessId=' + this.value,'" + Session["USER_GRANT_ROLE"] +"')" })
+               new { @id = "businesslist", @class = "form-control", onchange = "getPermission('/Admin/GrantPermissions/GetPermission/?businessId=' + this.value,'" + Session["USER_GRANT_ROLE"] + "')" })
             </div>
         </div>
-       
+
     </div>
     <div class="col-md-7">
         <h4>Danh mục quyền</h4>
         <div id="listaction"></div>
-        
+
     </div>
 </div>
 
@@ -40,7 +43,7 @@
                 console.log(data);
                 $('#listaction').html('');
                 $.each(data, function (index, value) {
-                  //  console.log(value);
+                    //  console.log(value);
                     if (value.isGrant) {
                         $('#listaction').append("<input type='checkbox' checked onchange='updatePermission(" + "\"/Admin/GrantPermissions/UpdatePermission/?permissionid=" + value.PermissionId + "\"," + @Session["USER_GRANT_ROLE"] + ");' > " + value.Description + "</br>")
                     } else {
@@ -62,11 +65,27 @@
                 userId: userid
             }),
             success: function (data) {
-              
-                $('#AlertBox').removeClass('hide');
-                $('#AlertBox').delay(1500).slideUp(500);
+                displayMessage(data.msg, data.errorCode);
             }
         });
     }
+
+    var displayMessage = function (message, msgType) {
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "positionClass": "toast-top-right",
+            "onClick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "3000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        toastr[msgType](message);
+    };
 
 </script>

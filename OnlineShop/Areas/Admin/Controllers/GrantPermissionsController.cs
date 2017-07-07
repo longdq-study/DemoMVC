@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using OnlineShop.Common;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -36,7 +37,8 @@ namespace OnlineShop.Areas.Admin.Controllers
 
             Session[Common.CommonConstants.USER_GRANT_ROLE] = id;
 
-          //  var usergrant = db.Users.Find(id);
+            var usergrant = db.Users.Where(x => x.ID == id).SingleOrDefault();
+            ViewBag.users = usergrant.Name;
 
 
             return View();
@@ -68,7 +70,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             return Json(listGrant.OrderBy(x => x.PermissionName), JsonRequestBehavior.AllowGet);
         }
 
-        public string UpdatePermission(long permissionid, long userid)
+        public JsonResult UpdatePermission(long permissionid, long userid)
         {
             string msg = "";
 
@@ -83,18 +85,17 @@ namespace OnlineShop.Areas.Admin.Controllers
 
                 db.GrantPermissions.Add(gp);
                 db.SaveChanges();
-                SetAlert("Cấp quyền thành công ", "success");
-                //msg = "<div class='alert alert-success'>Cấp quyền thành công </div>";
+
+                MyNotification n = new MyNotification() { msg = "Cấp quyền thành công", errorCode = "success" };
+                return Json(n,JsonRequestBehavior.AllowGet);
             }else
             {
                 db.GrantPermissions.Remove(grant);
                 db.SaveChanges();
-                SetAlert("Cấp quyền thành công ", "error");
-                //msg = "<div class='alert alert-danger'>Hủy quyền thành công </div>";
+                MyNotification n = new MyNotification() { msg = "Hủy quyền thành công", errorCode = "error" };
+                return Json(n, JsonRequestBehavior.AllowGet);
             }
            
-            return "abc"; 
-           // return RedirectToAction("Index","GrantPermissions", new { id = Session[Common.CommonConstants.USER_GRANT_ROLE] });
         }
     }
 }
