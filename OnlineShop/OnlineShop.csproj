@@ -229,6 +229,7 @@
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\PermissionsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ReflectionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TasksController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Admin\Models\AuthAttribute.cs" />
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
@@ -1309,6 +1310,11 @@
     <Content Include="Areas\Admin\Views\GrantPermissions\Index.cshtml" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <Content Include="Areas\Admin\Views\Tasks\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Tasks\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Tasks\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Tasks\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Tasks\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
